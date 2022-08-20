@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByID(long id) {
-        return userDao.findById(id).get();
+        return userDao.findById(id).orElse(null);
     }
 
 }
