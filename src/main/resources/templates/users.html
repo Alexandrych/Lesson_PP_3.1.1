@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+</head>
+<body bgcolor="#323232">
+<h1><font color="#C0C0C0">Пользователи:</font></h1>
+<table border="5" bgcolor="#808080">
+    <col width="60">
+    <col width="180">
+    <col width="180">
+    <col width="50">
+    <col width="80">
+    <tr>
+        <th style="background: #B0B28E">ID</th>
+        <th style="background: #c57948">Имя</th>
+        <th style="background: #c57948">Фамилия</th>
+        <th style="background: #c57948">Возраст</th>
+        <th/><th/>
+    </tr>
+    <tr th:each="user : ${usersList}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getSecondName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+
+        <td><form th:method="DELETE" th:action="@{/users/{id}/delete(id=${user.getId()})}">
+            <input type="submit" value="Удалить"/>
+        </form></td>
+
+<!--        <td><a th:href="@{/users?delete={id}(id=${user.id})}">Удалить</a></td>-->
+        <td><a th:href="@{/users/{id}/edit(id=${user.id})}">Изменить</a></td>
+    </tr>
+</table>
+
+<font color="#C0C0C0">
+<h1>Добавить пользователя:</h1>
+
+<form th:method="POST" th:action="@{/users}" th:object="${modelUser}">
+
+    <label for="firstName">Имя: </label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <div style="color:red" th:errors="*{firstName}">Name error</div>
+    <br>
+
+    <label for="secondName">Фамилия: </label>
+    <input type="text" th:field="*{secondName}" id="secondName"/>
+    <div style="color:red" th:errors="*{secondName}">Name error</div>
+    <br>
+
+    <label for="age">Возраст: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <div style="color:red" th:errors="*{age}">Name error</div>
+    <br>
+
+    <input type="submit" value="Добавить"/>
+
+</form>
+    <hr>
+    <a th:href="@{/}">На главную</a>
+</font>
+
+</body>
+</html>
