@@ -4,6 +4,7 @@ import com.alexandrych.lesson.dao.UserDao;
 import com.alexandrych.lesson.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String addUser(User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "users";
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public String updateUser(User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "edit";
@@ -50,6 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserById(long id) {
         userDao.deleteById(id);
     }
